@@ -1,12 +1,9 @@
 import { isProd } from '@/config';
 import { appLogger, errorLogger, logger, responseLogger } from '@/util';
 import { Middleware } from 'koa';
-import { ApplicationContext, AppState, AppResponseBodyT } from '@/model';
+import { AppContext, AppState, AppResponseBodyT } from '@/model';
 
-export const logHandle: Middleware<AppState, ApplicationContext, AppResponseBodyT> = async (
-    ctx,
-    next,
-) => {
+export const logHandle: Middleware<AppState, AppContext, AppResponseBodyT> = async (ctx, next) => {
     const start = Date.now();
     await next();
     const end: number = Date.now() - start;
@@ -20,7 +17,7 @@ export const logHandle: Middleware<AppState, ApplicationContext, AppResponseBody
     }
 };
 
-export const logErrorHandle = (error: unknown, ctx: ApplicationContext) => {
+export const logErrorHandle = (error: unknown, ctx: AppContext) => {
     if (isProd) {
         errorLogger.error(formatError(ctx, error));
         logger.error(`${ctx.method} ${ctx.url}`, error);
@@ -30,7 +27,7 @@ export const logErrorHandle = (error: unknown, ctx: ApplicationContext) => {
 };
 
 // 自定义输出格式，确定哪些内容输出到日志文件中
-function formatError(ctx: ApplicationContext, err: unknown) {
+function formatError(ctx: AppContext, err: unknown) {
     const { method, url } = ctx;
     const body = ctx.request.body;
     const user = ctx.state.user;
@@ -39,7 +36,7 @@ function formatError(ctx: ApplicationContext, err: unknown) {
     return { method, url, body, user, err };
 }
 
-function formatRes(ctx: ApplicationContext, costTime: number) {
+function formatRes(ctx: AppContext, costTime: number) {
     // const { method, url, response: { status, message, body: { success } }, request: { header: { authorization } } } = ctx
     const {
         ip,

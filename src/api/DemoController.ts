@@ -1,4 +1,4 @@
-import { ApplicationContext, JsonRecord } from '@/model';
+import { AppContext, JsonRecord } from '@/model';
 import { genAppResponseBodyT } from '@/util';
 import { json } from '@/util';
 
@@ -8,13 +8,13 @@ class DemoController {
     // constructor() {}
 
     // 查询
-    async get(ctx: ApplicationContext) {
+    async get(ctx: AppContext) {
         const result = json.get(jsonTable);
         ctx.body = genAppResponseBodyT({ data: result });
     }
 
     // 添加
-    async add(ctx: ApplicationContext) {
+    async add(ctx: AppContext) {
         const data = ctx.request.body;
         const record = {
             ...data,
@@ -25,21 +25,21 @@ class DemoController {
     }
 
     // 更新
-    async update(ctx: ApplicationContext) {
+    async update(ctx: AppContext) {
         const { id, ...restData } = ctx.request.body;
         json.update<JsonRecord>(jsonTable, restData, (d) => d.id === id);
         ctx.body = genAppResponseBodyT({ message: `${id}更新成功` });
     }
 
     // 删除
-    async delete(ctx: ApplicationContext) {
+    async delete(ctx: AppContext) {
         const { id } = ctx.request.body;
         json.delete<JsonRecord>(jsonTable, (d) => d.id === id);
         ctx.body = genAppResponseBodyT({ message: `${id}删除成功` });
     }
 
     // 清空
-    async clear(ctx: ApplicationContext) {
+    async clear(ctx: AppContext) {
         json.clear(jsonTable);
         ctx.body = genAppResponseBodyT();
     }
