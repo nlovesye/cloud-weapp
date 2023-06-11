@@ -13,13 +13,13 @@ import koaHelmet from 'koa-helmet';
 
 import { isProd, SERVER_CONFIG } from '@/config';
 import { errorHandle, logErrorHandle, logHandle } from './middleware';
-import { AppContext, AppState } from './model';
+import { ApplicationContext, AppState } from './model';
 import router from './router';
 import { appLogger } from './util';
 
 const { PORT, UPLOAD_MAX_FILE_SIZE, HOST } = SERVER_CONFIG;
 
-const app = new Koa<AppState, AppContext>();
+const app = new Koa<AppState, ApplicationContext>();
 
 if (isProd) {
     app.use(koaCompress());

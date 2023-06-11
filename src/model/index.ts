@@ -4,7 +4,7 @@ export type Nullable<T> = T | null;
 
 export type AppState = DefaultState;
 
-export type AppContext = DefaultContext;
+export type ApplicationContext = DefaultContext;
 
 export interface AppResponseBodyT<D = unknown> {
     status: AppStatusEnum;

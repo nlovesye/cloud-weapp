@@ -1,12 +1,12 @@
 // import fs from "fs";
 
 // import { resolve } from "@config/util";
-// import { AppContext } from "@/model";
+// import { ApplicationContext } from "@/model";
 // import { genAppResponseBodyT } from "@/util";
 
 class UploadController {
     // constructor() {}
-    // async index(ctx: AppContext) {
+    // async index(ctx: ApplicationContext) {
     //     const file = ctx.request.files.file; // 获取上传文件
     //     // 创建可读流
     //     const reader = fs.createReadStream(file.filepath);
