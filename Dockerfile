@@ -11,7 +11,7 @@ RUN npm install
 
 RUN npm run build
 
-EXPOSE 10010
+EXPOSE 10000
 
 VOLUME [ "/app/public" ]
 
